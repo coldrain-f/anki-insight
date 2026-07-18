@@ -1,20 +1,66 @@
-import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+async function invokeAnkiConnect(action: string, params = {}) {
+  const response = await fetch("http://localhost:8765", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action,
+      version: 6,
+      params
+    })
+  });
+
+  const data = await response.json();
+  if (data.error) {
+    throw new Error(data.error);
+  }
+
+  return data.result;
+}
+
 
 export function App() {
+
+  const [deckNames, setDeckNames] = useState([]);
+
+  useEffect(() => {
+    invokeAnkiConnect("deckNames")
+      .then(deckNames => {
+        const formattedDeckNames = deckNames.map((deckName: string) => ({
+          label: deckName,
+          value: deckName
+        }));
+
+        setDeckNames(formattedDeckNames);
+      })
+  })
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
-    </div>
+    <Select items={deckNames}>
+      <SelectTrigger className="w-full max-w-64">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Decks</SelectLabel>
+          {deckNames.map((deckName) => (
+            <SelectItem key={deckName.value} value={deckName.value}>
+              {deckName.value}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   )
 }
 
