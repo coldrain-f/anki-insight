@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getDeckNames } from "@/lib/ankiConnectActions";
 
+import type { DeckOption } from "@/types/anki";
+
 import {
   Select,
   SelectContent,
@@ -11,11 +13,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-
-type DeckOption = {
-  label: string,
-  value: string
-}
 
 export function App() {
 
@@ -32,7 +29,7 @@ export function App() {
 
   return (
     <Select items={deckNames}>
-      <SelectTrigger className="w-full max-w-64">
+      <SelectTrigger className="w-full max-w-256">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
