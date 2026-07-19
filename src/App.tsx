@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getDeckNames } from "@/lib/ankiConnectActions";
 
 import {
   Select,
@@ -10,40 +11,23 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-async function invokeAnkiConnect(action: string, params = {}) {
-  const response = await fetch("http://localhost:8765", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action,
-      version: 6,
-      params
-    })
-  });
 
-  const data = await response.json();
-  if (data.error) {
-    throw new Error(data.error);
-  }
-
-  return data.result;
+type DeckOption = {
+  label: string,
+  value: string
 }
-
 
 export function App() {
 
-  const [deckNames, setDeckNames] = useState([]);
+  const [deckNames, setDeckNames] = useState<DeckOption[]>([]);
 
   useEffect(() => {
-    invokeAnkiConnect("deckNames")
-      .then(deckNames => {
-        const formattedDeckNames = deckNames.map((deckName: string) => ({
-          label: deckName,
-          value: deckName
-        }));
+    getDeckNames().then((names: string[]) => {
+      const formattedDeckNames = names.map(name => ({ label: name, value: name }));
+      setDeckNames(formattedDeckNames);
+    })
+      .catch(error => new Error(error));
 
-        setDeckNames(formattedDeckNames);
-      })
   }, []);
 
   return (
