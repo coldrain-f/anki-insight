@@ -1,7 +1,7 @@
 export async function invokeAnkiConnect(
     action: string,
-    version: 6,
-    params: {}
+    version = 6,
+    params = {}
 ) {
     const response = await fetch("http://localhost:8765", {
         method: "POST",
