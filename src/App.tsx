@@ -44,7 +44,8 @@ export function App() {
 
         setDeckNames(formattedDeckNames);
       })
-  })
+  }, []);
+
   return (
     <Select items={deckNames}>
       <SelectTrigger className="w-full max-w-64">
