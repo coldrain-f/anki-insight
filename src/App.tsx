@@ -34,34 +34,30 @@ export function App() {
   const data: TreeDataItem[] = [
     {
       id: "1",
-      name: "Item 1",
+      name: "⛴️ Language",
       children: [
         {
           id: "2",
-          name: "Item 1.1",
+          name: "🗂️ English",
           children: [
             {
               id: "3",
-              name: "Item 1.1.1",
-            },
-            {
-              id: "4",
-              name: "Item 1.1.2",
-            },
-          ],
-        },
-        {
-          id: "5",
-          name: "Item 1.2 (disabled)",
-          disabled: true,
-        },
-      ],
-    },
-    {
-      id: "6",
-      name: "Item 2 (draggable)",
-      draggable: true,
-    },
+              name: "📚 영어 단어",
+              children: [
+                {
+                  id: "4",
+                  name: "📖 English 단어장"
+                },
+                {
+                  id: "5",
+                  name: "📖 English 해커스 구문독해 100"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   ];
 
   return (
