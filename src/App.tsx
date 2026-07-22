@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDeckNames } from "@/lib/ankiConnectActions";
+import { getDeckNames, getDeckNamesAndIds } from "@/lib/ankiConnectActions";
 
 import type { DeckOption } from "@/types/anki";
 
@@ -27,6 +27,11 @@ export function App() {
       setDeckNames(formattedDeckNames);
     })
       .catch(error => new Error(error));
+
+    // TEST
+    getDeckNamesAndIds().then((nameAndIds) => {
+      console.log(nameAndIds);
+    })
 
   }, []);
 
