@@ -1,7 +1,7 @@
 import { invokeAnkiConnect } from "@/lib/ankiConnect"
 
 export function getDeckNames() {
-    return invokeAnkiConnect("deckNames");
+    return invokeAnkiConnect<string[]>("deckNames");
 }
 
 export function getDeckNamesAndIds() {
