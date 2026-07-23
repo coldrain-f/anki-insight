@@ -1,8 +1,8 @@
-export async function invokeAnkiConnect(
+export async function invokeAnkiConnect<T>(
     action: string,
     version = 6,
     params = {}
-) {
+): Promise<T> {
     const response = await fetch("http://localhost:8765", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
