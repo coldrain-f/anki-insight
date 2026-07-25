@@ -22,15 +22,14 @@ export function App() {
 
   useEffect(() => {
     getDeckNames().then((names: string[]) => {
-      // console.log(names);
       const formattedDeckNames = names.map(name => ({ label: name, value: name }));
       setDeckNames(formattedDeckNames);
     })
       .catch(error => new Error(error));
 
     // TEST
-    getDeckNamesAndIds().then((deckNameAndIds) => {
-      console.log(deckNameAndIds);
+    getDeckNamesAndIds().then(deckNamesAndIds => {
+      deckNamesAndIds.forEach(deckNameAndId => console.log(deckNameAndId.deckName));
     })
 
   }, []);
