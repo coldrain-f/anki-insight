@@ -21,3 +21,12 @@ export async function getDeckNamesAndIds() {
 
     return deckNamesAndIds;
 }
+
+export function getDeckNamesAndIdsMap() {
+    return invokeAnkiConnect<Record<string, number>>("deckNamesAndIds");
+}
+
+export async function getDeckIdByDeckName(deckName: string) {
+    const deckNamesAndIdsMap = await getDeckNamesAndIdsMap();
+    return deckNamesAndIdsMap[deckName];
+}
