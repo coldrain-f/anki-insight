@@ -76,3 +76,21 @@ describe("split 함수 테스트", () => {
         expect(deckNameParts.length).toBe(2);
     })
 })
+
+describe("Parent DeckName 구하기", () => {
+    it("", () => {
+        const deckName = "⛴️ Language::🗂️ English";
+        const deckNameParts = deckName.split("::");
+        const parentDeckName =  deckNameParts[deckNameParts.length - 2];
+
+        expect(parentDeckName).toBe("⛴️ Language");
+    })
+
+    it("", () => {
+        const deckName = "⛴️ Language::🗂️ English::📚 영어 단어";
+        const deckNameParts = deckName.split("::");
+        const parentDeckName =  deckNameParts[deckNameParts.length - 2];
+
+        expect(parentDeckName).toBe("🗂️ English");
+    })
+})
