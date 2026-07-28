@@ -39,4 +39,40 @@ describe('덱 이름을 트리 구조로 변환', () => {
             ]
         )
     })
+
+    it('덱 이름을 트리구조로 변환한다 - Level 2', () => {
+        const deckNames = [
+            '⛴️ Language',
+            '⛴️ Language::🗂️ English',
+        ];
+
+        const treeDataItem = convertDeckNamesToTree(deckNames);
+        expect(treeDataItem).toEqual(
+            [
+                {
+                    id: "1",
+                    name: "⛴️ Language",
+                    children: [{
+                            id: "2",
+                            name: "⛴️ Language::🗂️ English"
+                        }
+                    ]
+                }
+            ]
+        )
+    })
+})
+
+describe("split 함수 테스트", () => {
+    it("분열된 데이터의 길이 1을 반환한다.", () => {
+        const deckName = "⛴️ Language";
+        const deckNameParts = deckName.split("::");
+        expect(deckNameParts.length).toBe(1);
+    })
+
+    it("분열된 데이터의 길이 2를 반환한다.", () => {
+        const deckName = "⛴️ Language::🗂️ English";
+        const deckNameParts = deckName.split("::");
+        expect(deckNameParts.length).toBe(2);
+    })
 })
