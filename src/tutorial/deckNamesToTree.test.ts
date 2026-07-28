@@ -1,5 +1,6 @@
 import { expect, it, describe } from "vitest"
 import { convertDeckNamesToTree } from "./deckNamesToTree";
+import type { TreeDataItem } from "@/components/ui/tree-view";
 
 describe('덱 이름을 트리 구조로 변환', () => {
     it('덱 이름을 반환한다', () => {
@@ -53,9 +54,9 @@ describe('덱 이름을 트리 구조로 변환', () => {
                     id: "1",
                     name: "⛴️ Language",
                     children: [{
-                            id: "2",
-                            name: "⛴️ Language::🗂️ English"
-                        }
+                        id: "2",
+                        name: "⛴️ Language::🗂️ English"
+                    }
                     ]
                 }
             ]
@@ -81,7 +82,7 @@ describe("Parent DeckName 구하기", () => {
     it("", () => {
         const deckName = "⛴️ Language::🗂️ English";
         const deckNameParts = deckName.split("::");
-        const parentDeckName =  deckNameParts[deckNameParts.length - 2];
+        const parentDeckName = deckNameParts[deckNameParts.length - 2];
 
         expect(parentDeckName).toBe("⛴️ Language");
     })
@@ -89,8 +90,31 @@ describe("Parent DeckName 구하기", () => {
     it("", () => {
         const deckName = "⛴️ Language::🗂️ English::📚 영어 단어";
         const deckNameParts = deckName.split("::");
-        const parentDeckName =  deckNameParts[deckNameParts.length - 2];
+        const parentDeckName = deckNameParts[deckNameParts.length - 2];
 
         expect(parentDeckName).toBe("🗂️ English");
+    })
+
+    it("Depth 1만 있을 경우 1을 find 함수로 찾을 수 있다", () => {
+        const treeDataItems: TreeDataItem[] = [];
+        treeDataItems.push({ id: "1", name: "⛴️ Language" });
+
+        const parentTreeDataItem = treeDataItems.find(item => item.name === "⛴️ Language");
+        expect(parentTreeDataItem?.name).toBe("⛴️ Language");
+    })
+
+    it("Depth 2까지 있을 경우 2를 find 함수로 찾을 수 없다", () => {    // Anki추가하기(find 함수는 배열의 최상위 요소만 찾음)
+        const treeDataItems: TreeDataItem[] = [];
+        treeDataItems.push({
+            id: "1",
+            name: "⛴️ Language",
+            children: [{
+                id: "2",
+                name: "🗂️ English"
+            }]
+        });
+
+        const parentTreeDataItem = treeDataItems.find(item => item.name === "🗂️ English");
+        expect(parentTreeDataItem?.name).toBeUndefined();
     })
 })
