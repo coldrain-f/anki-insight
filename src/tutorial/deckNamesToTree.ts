@@ -1,11 +1,20 @@
 import type { TreeDataItem } from "@/components/ui/tree-view";
 
+export function getDeckNamePartsByDeckName(deckName: string) {
+    return deckName.split("::");
+}
+
+export function getParentDeckNameByDeckName(deckName: string) {
+    const deckNameParts = getDeckNamePartsByDeckName(deckName);
+    return deckNameParts[deckNameParts.length - 2];
+}
+
 export function convertDeckNamesToTree(deckNames: string[]) {
     const treeDataItems: TreeDataItem[] = [];
 
     for (let i = 0; i < deckNames.length; i++) {
         const deckName = deckNames[i];
-        const deckNameParts = deckName.split("::");
+        const deckNameParts = getDeckNamePartsByDeckName(deckName);
 
         if (deckNameParts.length <= 1) {
             treeDataItems.push({
@@ -13,7 +22,7 @@ export function convertDeckNamesToTree(deckNames: string[]) {
                 name: deckName
             });
         } else {
-            const parentDeckName = deckNameParts[deckNameParts.length - 1];
+            const parentDeckName = getParentDeckNameByDeckName(deckName);
             const parentTreeDataItem = treeDataItems.find(item => item.name === parentDeckName);
             parentTreeDataItem?.children?.push({
                 id: "2",
