@@ -66,6 +66,13 @@ describe('덱 이름을 트리 구조로 변환', () => {
 
 
 describe("getParentDeckNameByDeckName 함수 테스트", () => {
+
+    it("deckName을 빈 문자열을 넘겼을 때 빈 배열 []을 반환한다.", () => {
+        const deckName = "";
+        const deckNameParts = getDeckNamePartsByDeckName(deckName);
+        expect(deckNameParts).toEqual([]);
+    })
+
     it("분열된 데이터의 길이 1을 반환한다.", () => {
         const deckName = "⛴️ Language";
         const deckNameParts = getDeckNamePartsByDeckName(deckName);

@@ -1,6 +1,7 @@
 import type { TreeDataItem } from "@/components/ui/tree-view";
 
-export function getDeckNamePartsByDeckName(deckName: string) {
+export function getDeckNamePartsByDeckName(deckName: string) {    
+    if (deckName === "") return [] as string[];
     return deckName.split("::");
 }
 
