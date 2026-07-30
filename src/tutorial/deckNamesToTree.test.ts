@@ -1,5 +1,5 @@
 import { expect, it, describe } from "vitest"
-import { convertDeckNamesToTree } from "./deckNamesToTree";
+import { convertDeckNamesToTree, getDeckNamePartsByDeckName } from "./deckNamesToTree";
 import type { TreeDataItem } from "@/components/ui/tree-view";
 
 describe('덱 이름을 트리 구조로 변환', () => {
@@ -64,16 +64,17 @@ describe('덱 이름을 트리 구조로 변환', () => {
     })
 })
 
-describe("split 함수 테스트", () => {
+
+describe("getParentDeckNameByDeckName 함수 테스트", () => {
     it("분열된 데이터의 길이 1을 반환한다.", () => {
         const deckName = "⛴️ Language";
-        const deckNameParts = deckName.split("::");
+        const deckNameParts = getDeckNamePartsByDeckName(deckName);
         expect(deckNameParts.length).toBe(1);
     })
 
     it("분열된 데이터의 길이 2를 반환한다.", () => {
         const deckName = "⛴️ Language::🗂️ English";
-        const deckNameParts = deckName.split("::");
+        const deckNameParts = getDeckNamePartsByDeckName(deckName);
         expect(deckNameParts.length).toBe(2);
     })
 })
