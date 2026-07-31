@@ -87,7 +87,7 @@ describe("getParentDeckNameByDeckName 함수 테스트", () => {
 })
 
 describe("Parent DeckName 구하기", () => {
-    it("", () => {
+    it("⛴️ Language::🗂️ English의 부모는 ⛴️ Language", () => {
         const deckName = "⛴️ Language::🗂️ English";
         const deckNameParts = deckName.split("::");
         const parentDeckName = deckNameParts[deckNameParts.length - 2];
@@ -95,7 +95,7 @@ describe("Parent DeckName 구하기", () => {
         expect(parentDeckName).toBe("⛴️ Language");
     })
 
-    it("", () => {
+    it("⛴️ Language::🗂️ English::📚 영어 단어의 부모는 🗂️ English", () => {
         const deckName = "⛴️ Language::🗂️ English::📚 영어 단어";
         const deckNameParts = deckName.split("::");
         const parentDeckName = deckNameParts[deckNameParts.length - 2];
